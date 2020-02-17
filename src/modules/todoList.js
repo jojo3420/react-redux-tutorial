@@ -4,17 +4,20 @@ const INSERT_TODO = 'todoList/INSERT_TODO';
 const DELETE_TODO = 'todoList/DELETE_TODO';
 const TOGGLE_TODO_DONE = 'todoList/TOGGLE_TODO_DONE';
 
-export function todoInputChange(inputText) {
+export function todoInputChange(text) {
 	return {
 		type: TODO_INPUT_CHANGE,
-		inputText,
+		text,
 	};
 }
 
-export function insertTodo(todo) {
+// export function insertTodo(todo) {
+let id = 3;
+export function insertTodo(text) {
 	return {
 		type: INSERT_TODO,
-		todo,
+		// 투두 객체를 받는게 아니라 인풋을 받고 투두 객체를 여기서 생성함.
+		todo: { id: id++, text, done: false },
 	};
 }
 
@@ -38,7 +41,7 @@ const INITIAL_STATE = {
 		{ id: 1, text: 'learn redux with react', done: true },
 		{ id: 2, text: 'learn react hook', done: false },
 	],
-	todoInput: '',
+	text: '',
 };
 
 // reducer function
@@ -47,7 +50,7 @@ const todoListReducer = (state = INITIAL_STATE, action) => {
 		case TODO_INPUT_CHANGE:
 			return {
 				...state,
-				todoInput: action.todoInput,
+				text: action.text,
 			};
 		case INSERT_TODO:
 			return {
@@ -62,7 +65,9 @@ const todoListReducer = (state = INITIAL_STATE, action) => {
 		case TOGGLE_TODO_DONE:
 			return {
 				...state,
-				todos: state.map(todo => (todo.id === action.id ? !todo.done : todo)),
+				todos: state.todos.map(todo =>
+					todo.id === action.id ? { ...todo, done: !todo.done } : todo,
+				),
 			};
 		default:
 			return state;
