@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
-import TodoList from './components/TodoList';
 import CounterContainer from './containers/CounterContainer';
 import TodoListContainer from './containers/TodoListContainer';
-
+import CounterWithMiddleContainer from './containers/CounterWithMiddleContainer';
+import ThunkComponentContainer from './containers/ThunkComponentContainer';
 function App() {
 	return (
 		<div className="App">
@@ -11,6 +11,10 @@ function App() {
 			<CounterContainer />
 			<hr />
 			<TodoListContainer />
+			<hr />
+			<CounterWithMiddleContainer />
+			<hr />
+			<ThunkComponentContainer />
 		</div>
 	);
 }

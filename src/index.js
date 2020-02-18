@@ -1,18 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './modules';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+// import loggerMiddleware from './lib/loggerMiddleware';
+import { createLogger } from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
 
+const middleware = [createLogger(), ReduxThunk];
 const store = createStore(
 	rootReducer,
 	/* preloadState, */
-	composeWithDevTools(),
-	// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+	composeWithDevTools(applyMiddleware(...middleware)),
 );
 
 ReactDOM.render(
