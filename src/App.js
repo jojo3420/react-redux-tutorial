@@ -4,6 +4,7 @@ import CounterContainer from './containers/CounterContainer';
 import TodoListContainer from './containers/TodoListContainer';
 import CounterWithMiddleContainer from './containers/CounterWithMiddleContainer';
 import ThunkComponentContainer from './containers/ThunkComponentContainer';
+import CounterWithSagaContainer from './containers/CounterWithSagaContainer';
 function App() {
 	return (
 		<div className="App">
@@ -15,6 +16,8 @@ function App() {
 			<CounterWithMiddleContainer />
 			<hr />
 			<ThunkComponentContainer />
+			<hr />
+			<CounterWithSagaContainer />
 		</div>
 	);
 }
