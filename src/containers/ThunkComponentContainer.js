@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import ThunkComponent from '../components/ThunkComponent';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPost, getUsers } from '../modules/redux-thunk';
+import { getPost, getUsers, GET_POST, GET_USERS } from '../modules/redux-thunk';
 
 function ThunkComponentContainer({
 	postLoading,
@@ -15,16 +15,22 @@ function ThunkComponentContainer({
 	getUsers,
 }) {
 	useEffect(() => {
-		getPost(1);
-		getUsers();
+		const fetch = async () => {
+			try {
+				await getPost(1);
+				await getUsers();
+			} catch (e) {
+				// component level 에서 예외를 캐치 할 수도 있다.
+				console.info(e);
+			}
+		};
+		fetch();
 	}, [getPost, getUsers]);
 
 	return (
 		<ThunkComponent
 			postLoading={postLoading}
 			usersLoading={usersLoading}
-			postError={postError}
-			usersError={usersError}
 			post={post}
 			users={users}
 		/>
@@ -32,12 +38,12 @@ function ThunkComponentContainer({
 }
 
 const mapStateToProps = state => {
-	const { thunk } = state;
+	const { thunk, loading } = state;
 	return {
-		postLoading: thunk.loading.post,
-		userLoading: thunk.loading.users,
-		postError: thunk.error.post,
-		usersError: thunk.error.users,
+		postLoading: loading[GET_POST],
+		userLoading: loading[GET_USERS],
+		// postError: thunk.error.post,
+		// usersError: thunk.error.users,
 		post: thunk.post,
 		users: thunk.users,
 	};
