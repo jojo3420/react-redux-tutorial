@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import CounterWithMiddle from '../components/CounterWithMiddle';
+import CounterWithThunk from '../components/CounterWithThunk';
 import {
 	increaseWithMiddle,
 	increaseAsync,
@@ -9,7 +9,7 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useActions } from '../lib/useActions';
 
-function CounterWithMiddleContainer(props) {
+function CounterWithThunkContainer(props) {
 	const { counter } = useSelector(state => ({ counter: state.counterWith }));
 
 	// 후크 사용전 개별적으로 디스패치
@@ -31,7 +31,7 @@ function CounterWithMiddleContainer(props) {
 		[],
 	);
 	return (
-		<CounterWithMiddle
+		<CounterWithThunk
 			counter={counter}
 			increase={onIncrease}
 			decrease={onDecrease}
@@ -39,4 +39,4 @@ function CounterWithMiddleContainer(props) {
 	);
 }
 
-export default React.memo(CounterWithMiddleContainer);
+export default React.memo(CounterWithThunkContainer);

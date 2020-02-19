@@ -1,8 +1,9 @@
 import React from 'react';
 
-function CounterWithMiddle({ counter, increase, decrease }) {
+function CounterWithThunk({ counter, increase, decrease }) {
 	return (
 		<div>
+			<h1>Counter with Thunk Middleware</h1>
 			<h2>{counter}</h2>
 			<button onClick={increase}>Increase</button>
 			<button onClick={decrease}>Decrease</button>
@@ -10,4 +11,4 @@ function CounterWithMiddle({ counter, increase, decrease }) {
 	);
 }
 
-export default CounterWithMiddle;
+export default CounterWithThunk;

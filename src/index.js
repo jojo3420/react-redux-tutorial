@@ -6,6 +6,7 @@ import rootReducer, { rootSaga } from './modules';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import './index.css';
 import App from './App';
+import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 // import loggerMiddleware from './lib/loggerMiddleware';
 import { createLogger } from 'redux-logger';
@@ -23,7 +24,9 @@ sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
 	<Provider store={store}>
-		<App />
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root'),
 );

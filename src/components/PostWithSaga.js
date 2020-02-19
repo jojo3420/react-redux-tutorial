@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ThunkComponent({ postLoading, usersLoading, post, users }) {
+function PostWithSaga({ postLoading, usersLoading, post, users }) {
 	return (
 		<div>
-			<h2>Thunk Use : posts</h2>
+			<h1>Post With Saga Middleware</h1>
 			{postLoading && <div>post Loading...</div>}
 			{!postLoading && post && (
 				<section>
@@ -12,7 +12,7 @@ function ThunkComponent({ postLoading, usersLoading, post, users }) {
 				</section>
 			)}
 			<hr />
-			<h2>Thunk Use: users</h2>
+			<h1>Users With Saga Middleware</h1>
 			{usersLoading && <div>users Loading...</div>}
 			<div>
 				{!usersLoading &&
@@ -28,4 +28,4 @@ function ThunkComponent({ postLoading, usersLoading, post, users }) {
 	);
 }
 
-export default ThunkComponent;
+export default PostWithSaga;

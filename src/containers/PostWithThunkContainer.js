@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import ThunkComponent from '../components/ThunkComponent';
+import PostWithThunk from '../components/PostWithThunk';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getPost, getUsers, GET_POST, GET_USERS } from '../modules/redux-thunk';
 
-function ThunkComponentContainer({
+function PostWithThunkContainer({
 	postLoading,
 	usersLoading,
 	postError,
@@ -28,7 +28,7 @@ function ThunkComponentContainer({
 	}, [getPost, getUsers]);
 
 	return (
-		<ThunkComponent
+		<PostWithThunk
 			postLoading={postLoading}
 			usersLoading={usersLoading}
 			post={post}
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps,
-)(ThunkComponentContainer);
+)(PostWithThunkContainer);
