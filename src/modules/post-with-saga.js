@@ -1,7 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import * as api from '../lib/api';
-import { startLoading, endLoading } from './loading';
+import createRequestSaga from '../lib/createRequestSaga';
+// import { startLoading, endLoading } from './loading';
 import produce from 'immer';
 
 // 1-1 동기 액션 타입
@@ -18,30 +19,35 @@ export const GET_USERS_FAILURE = 'saga/GET_USERS_FAILURE';
 export const getPost = createAction(GET_POST, id => id);
 export const getUsers = createAction(GET_USERS, () => null);
 
-function* getPostSaga(action) {
-	yield startLoading(GET_POST);
-	try {
-		const response = yield call(api.getPost, action.payload);
-		yield put({ type: GET_POST_SUCCESS, payload: response.data });
-		yield endLoading(GET_POST);
-	} catch (e) {
-		yield put({ type: GET_POST_FAILURE, payload: e, error: true });
-		yield endLoading(GET_POST);
-		// throw e;
-	}
-}
+// 리팩토링 전 코드
+// function* getPostSaga(action) {
+// 	yield startLoading(GET_POST);
+// 	try {
+// 		const response = yield call(api.getPost, action.payload);
+// 		yield put({ type: GET_POST_SUCCESS, payload: response.data });
+// 		yield endLoading(GET_POST);
+// 	} catch (e) {
+// 		yield put({ type: GET_POST_FAILURE, payload: e, error: true });
+// 		yield endLoading(GET_POST);
+// 		// throw e;
+// 	}
+// }
+//
+// export function* getUsersSaga() {
+// 	yield startLoading(GET_USERS);
+// 	try {
+// 		const response = yield call(api.getUsers);
+// 		yield put({ type: GET_USERS_SUCCESS, payload: response.data });
+// 		yield endLoading(GET_USERS);
+// 	} catch (e) {
+// 		yield put({ type: GET_USERS_FAILURE, payload: e, error: true });
+// 		yield endLoading(GET_USERS);
+// 	}
+// }
 
-export function* getUsersSaga() {
-	yield startLoading(GET_USERS);
-	try {
-		const response = yield call(api.getUsers);
-		yield put({ type: GET_USERS_SUCCESS, payload: response.data });
-		yield endLoading(GET_USERS);
-	} catch (e) {
-		yield put({ type: GET_USERS_FAILURE, payload: e, error: true });
-		yield endLoading(GET_USERS);
-	}
-}
+// 리팩토링 사가 - Common request
+const getPostSaga = createRequestSaga(GET_POST, api.getPost);
+const getUsersSaga = createRequestSaga(GET_USERS, api.getUsers);
 
 export function* postSaga() {
 	yield takeLatest(GET_POST, getPostSaga);
