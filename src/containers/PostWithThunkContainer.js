@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import PostWithThunk from '../components/PostWithThunk';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getPost, getUsers, GET_POST, GET_USERS } from '../modules/redux-thunk';
+import {
+	getPost,
+	getUsers,
+	GET_POST,
+	GET_USERS,
+} from '../modules/post-with-thunk';
 
 function PostWithThunkContainer({
 	postLoading,

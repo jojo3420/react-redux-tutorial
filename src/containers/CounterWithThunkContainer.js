@@ -5,7 +5,7 @@ import {
 	increaseAsync,
 	decreaseWithMiddle,
 	decreaseAsync,
-} from '../modules/counter-with-middleware';
+} from '../modules/counter-with-thunk';
 import { useSelector, useDispatch } from 'react-redux';
 import { useActions } from '../lib/useActions';
 

@@ -1,5 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { delay, put, takeEvery, takeLatest } from 'redux-saga/effects';
+// put:  이벤트 디스패치 함수 ,
+// takeEvery: 이벤트 디스패치 요청에 대해 모두 처리
+// takeLatest : 이벤트 디스패치 요청에 마지막 1개만 처리 : 중복 요청 방지 효과
 
 // 1. Action Type
 const INCREASE = 'counter-saga/INCREASE';
