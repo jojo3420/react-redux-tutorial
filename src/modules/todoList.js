@@ -1,4 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
+import produce from 'immer';
+
 
 // Action List
 const APP = 'todoList';
@@ -78,23 +80,26 @@ const INITIAL_STATE = {
 
  const todoList = handleActions({
    [ADD]: (state, { payload: todo}) => {
-     return {
-       ...state,
-       list: state.list.concat(todo),
-     }
+     return produce(state, draft => {
+       draft.list.push(todo);
+     });
    },
-   [REMOVE]: (state, { payload: id }) => ({
-     ...state,
-     list: state.list.filter(todo => todo.id !== id),
-   }),
-   [DONE]: (state, { payload: id}) => ({
-     ...state,
-     list: state.list.map(todo => todo.id === id ? {...todo, done: !todo.done} : todo),
-   }),
-   [CHANGE_INPUT]: (state, { payload: text }) => ({
-     ...state,
-     text,
-   }),
+   [REMOVE]: (state, { payload: id }) =>{
+     return produce(state, draft  => {
+       draft.list.splice(draft.list.findIndex(todo => todo.id  === id), 1);
+     })
+   },
+   [DONE]: (state, { payload: id}) => {
+     return produce(state, draft  => {
+       const todo = draft.list.find(todo => todo.id === id);
+       todo.done = !todo.done;
+     })
+   },
+   [CHANGE_INPUT]: (state, { payload: text }) => {
+     return produce(state, draft => {
+        draft.text = text;
+     });
+   },
  }, INITIAL_STATE);
 
 
