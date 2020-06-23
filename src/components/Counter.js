@@ -1,12 +1,13 @@
 import React from 'react';
 
-function Counter({ counter, onChange }) {
+
+function Counter({ counter, handleIncrease, handleDecrease }) {
 	return (
 		<div>
-			<h3>Counter</h3>
+			<h3>Counter App</h3>
 			<p>{counter}</p>
-			<button onClick={onChange}>+1</button>
-			<button onClick={onChange}>-1</button>
+			<button onClick={handleIncrease}>+1</button>
+			<button onClick={handleDecrease}>-1</button>
 		</div>
 	);
 }
