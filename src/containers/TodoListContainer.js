@@ -1,26 +1,41 @@
 import React, { useCallback  } from 'react';
 import { add, remove, done, changeInput } from 'modules/todoList';
-import { connect } from 'react-redux';
 import TodoList from 'components/TodoList';
-import { bindActionCreators } from "redux";
+import { useSelector, useDispatch } from 'react-redux';
+import useActions from "hooks/useActions";
 
-function TodoListContainer({ list, text, add, remove, done, changeInput}) {
 
-  const handleInput = useCallback(e => {
-    const { value } = e.target;
+function TodoListContainer({ }) {
+  const { text, list } = useSelector(({ todoList }) => todoList);
+
+  // useDispatch 방식
+  // const dispatch = useDispatch();
+  // const handleInput = useCallback(e => {
+  //   const { value } = e.target;
     // console.log({ value })
-    changeInput(value);
-  }, []);
+    // dispatch(changeInput(value));
+  // }, [dispatch]);
+
+  // const handleAdd = useCallback(() => {
+    // console.log({ text });
+    // dispatch(add(text));
+    // dispatch(changeInput(''));
+  // }, [text, dispatch]);
+
+  // const handleRemove = useCallback(id => dispatch(remove(id)), [dispatch]);
+  // const handleDone = useCallback(id => dispatch(done(id)), [dispatch]);
+
+
+  // useActions Hooks 방식
+  const [onAdd, onRemove, onDone, onInput ] = useActions([ add, remove, done, changeInput], []);
 
   const handleAdd = useCallback(() => {
-    // console.log({ text });
-    add(text);
-    changeInput('');
-  }, [text]);
-
-  const handleRemove = useCallback(id => remove(id), []);
-
-  const handleDone = useCallback(id => done(id), []);
+    onAdd(text);
+    onInput('');
+  }, [text])
+  const handleRemove = useCallback(id => onRemove(id), [])
+  const handleDone = useCallback(id => onDone(id), [])
+  const handleInput = useCallback(e => onInput(e.target.value), []);
 
   return (
     <TodoList
@@ -34,29 +49,5 @@ function TodoListContainer({ list, text, add, remove, done, changeInput}) {
   );
 }
 
+export default React.memo(TodoListContainer);
 
-export default connect(
-  (state) => ({
-    list: state.todoList.list,
-    text: state.todoList.text,
-  }),
-  // (dispatch) => {
-  //  return {
-  //    add: text => dispatch(add(text)),
-  //    remove: id => dispatch(remove(id)),
-  //    done: id => dispatch(done(id)),
-  //    changeInput: text => {
-  //      console.log({ text })
-  //      dispatch(changeInput(text));
-  //    },
-  //  }
-  // },
-  (dispatch) => bindActionCreators({
-    add,
-    remove,
-    done,
-    changeInput,
-  }, dispatch)
-
-  // { add, remove, done, changeInput }
-)(TodoListContainer);
