@@ -1,16 +1,18 @@
 import React from 'react';
 import Counter from 'components/Counter';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { increase, decrease } from 'modules/counter';
 import { useSelector, useDispatch } from 'react-redux';
+import useActions from "hook/useActions";
 
 function CounterContainer() {
   // 2. hook 이용하는 방식
   const number = useSelector(({ counter }) =>  counter.number);
-  const dispatch = useDispatch();
-
-  const onIncrease = () => dispatch(increase());
-  const onDecrease = () => dispatch(decrease());
+  // const dispatch = useDispatch();
+  // const onIncrease = () => dispatch(increase());
+  // const onDecrease = () => dispatch(decrease());
+  // 3. custom hooks: useActions
+  const [onIncrease, onDecrease] = useActions([increase, decrease], []);
 
   return (
     <Counter
