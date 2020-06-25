@@ -1,15 +1,14 @@
 import React from 'react';
-import './App.css';
-import TodoList from './components/TodoList';
-import Counter from './components/Counter';
+import TodoListContainer from './containers/TodoListContainer';
+import CounterContainer from './containers/CounterContainer';
 
 function App() {
 	return (
 		<div className="App">
 			hello React&Redux
-			<Counter counter={0} />
+			<TodoListContainer />
 			<hr />
-			<TodoList todos={[]} />
+			<CounterContainer />
 		</div>
 	);
 }
